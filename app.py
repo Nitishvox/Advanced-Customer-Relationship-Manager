@@ -120,7 +120,7 @@ def home():
     conn = sqlite3.connect(DB)
     cur = conn.cursor()
     sql = 'SELECT id, name, account, email, phone, created_at FROM customers'
-    params = ()
+    params = ""
     if search_query:
         sql += ' WHERE name LIKE ? OR account LIKE ? OR email LIKE ? OR phone LIKE ?'
         params = (f'%{search_query}%', f'%{search_query}%', f'%{search_query}%', f'%{search_query}%')
@@ -775,5 +775,5 @@ def export():
     return send_file(io.BytesIO(output.getvalue().encode()), mimetype='text/csv', as_attachment=True, download_name='customers.csv')
 
 if __name__ == '__main__':
-
-    app.run(host = '0.0.0.0', debug = True)
+    # Note: Port 80 requires root privileges (sudo) on most systems. If you encounter a "Permission denied" error, try a higher port like 5000 (e.g., app.run(host='0.0.0.0', port=5000, debug=True)).
+    app.run(host='0.0.0.0', port=80, debug=True)
